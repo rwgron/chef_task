@@ -9,6 +9,7 @@ add_user.each do |new_user|
         comment new_user[:comment]
         home new_user[:home_dir]
         shell new_user[:def_shell]
+#        ssh-key new_user[:ssh-key]
     end
 
 user_name = new_user[:username]
@@ -24,21 +25,20 @@ directory "/home/#{user_name}/.ssh" do
 
 
 file "/home/#{user_name}/.ssh/authorized_keys" do
-        content new_user[:ssh_key]
-        owner new_user[:uid]
-        group new_user[:gid]
+        owner user_name['id']
+        group user_name['gid']
         mode 0640
         action :create
      end
 
 
 
-#template "/home/#{user_name}/.ssh/authorized_keys" do
-#    source "authorized_keys.erb"
-#    variables({
-#     :ssh_keys => user_name['ssh-keys'],
-#    })    
-#    
-#  end
+template "/home/#{user_name}/.ssh/authorized_keys" do
+    source "authorized_keys.erb"
+    variables({
+     :ssh_keys => user_name['ssh-keys'],
+    })    
+    
+  end
           
 end
