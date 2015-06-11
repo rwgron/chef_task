@@ -33,12 +33,5 @@ file "/home/#{user_name}/.ssh/authorized_keys" do
 
 
 
-#template "/home/#{user_name}/.ssh/authorized_keys" do
-#    source "authorized_keys.erb"
-#    variables({
-#     :ssh_keys => user_name['ssh-keys'],
-#    })    
-#    
-#  end
           
 end
